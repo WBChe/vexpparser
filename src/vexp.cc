@@ -355,6 +355,13 @@ std::string VExprAst::to_verilog() const {
   return "";
 } // translation to verilog
 
+void VExprAst::set_node_width(int node_width){
+  node_width_ = node_width;
+}
+
+void VExprAst::set_target_width(int target_width){
+  target_width_ = target_width;
+}
 
 std::vector<std::string> voperator_str_vec = {
   "STAR", // mul

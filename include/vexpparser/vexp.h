@@ -67,8 +67,8 @@ enum class voperator {
   B_NOR,
   INDEX, // [idx] operator  A[i1][i2] -> index(index(A,i1),i2)   A[i1[i2]]  index(A, index(i1,i2))
   RANGE_INDEX, // [i1:i2] ternary
-  IDX_PRT_SEL_PLUS, // [i1:+i2] ternary
-  IDX_PRT_SEL_MINUS, // [i1:-i2] ternary
+  IDX_PRT_SEL_PLUS, // [i1+:i2] ternary
+  IDX_PRT_SEL_MINUS, // [i1-:i2] ternary
   STORE_OP, // A:<3>:5:<4>:6:<5>:7  (not supported yet)
   AT,
 
@@ -141,6 +141,12 @@ public:
   virtual bool is_var()      const { return false; }
   virtual bool is_constant() const { return false; }
   virtual std::string to_verilog() const;
+  
+  // for ast2term
+  void set_node_width(int node_width);
+  void set_target_width(int target_width);
+  int get_node_width()    { return node_width_; }
+  int get_target_width()  { return target_width_; }
 
   VExprAst(voperator op, const VExprAstPtrVec & c, 
     const std::vector<int> & parameter, const std::vector<std::string> & str_parameter) : 
@@ -154,6 +160,10 @@ protected:
   const std::vector<std::string> str_parameter_;
   
   InternalInfoPtr annotate_;
+  
+  // for ast2term
+  int node_width_;
+  int target_width_;
 };
 
 
